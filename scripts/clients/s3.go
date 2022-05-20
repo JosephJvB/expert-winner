@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-var client *s3.Client
+var s3Client *s3.Client
 
 func init() {
 	log.SetPrefix("clients.s3: ")
@@ -20,7 +20,7 @@ func init() {
 		log.Fatal(err)
 	}
 	
-	client = s3.NewFromConfig(cfg)
+	s3Client = s3.NewFromConfig(cfg)
 }
 func RunS3() {
 	log.Println("RunS3()")
@@ -60,5 +60,5 @@ func getNext(key *string) (*s3.ListObjectsV2Output, error) {
 	if key != nil {
 		params.ContinuationToken = key
 	}
-	return client.ListObjectsV2(context.TODO(), params)
+	return s3Client.ListObjectsV2(context.TODO(), params)
 }
